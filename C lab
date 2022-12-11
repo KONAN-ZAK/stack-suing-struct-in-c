@@ -1,0 +1,110 @@
+#include <stdio.h>
+#define size 5
+
+typedef struct stack
+{
+  int stack[size];
+  int top;
+} stack;
+
+void init_stack(stack *ptr);
+int is_empty(stack *ptr);
+int is_full(stack *ptr);
+void push(stack *ptr, int v);
+void pop(stack *ptr);
+void show(stack *ptr);
+
+int main()
+{
+  stack s;
+  init_stack(&s);
+  int a, v;
+  do
+  {
+    printf("Enter 1 to add 2 to pop 3 to present top 4 to exit");
+    scanf("%d", &a);
+    switch (a)
+    {
+    case 1:
+
+      printf("Enter the value to push: \n");
+      scanf("%d", &v);
+      push(&s, v);
+      break;
+    case 2:
+      pop(&s);
+      break;
+    case 3:
+      show(&s);
+      break;
+    case 4:
+      printf("Thanks!\n");
+      break;
+    default:
+      printf("not valid!");
+      break;
+    }
+  } while (a != 4);
+
+  return 0;
+}
+void init_stack(stack *ptr)
+{
+  ptr->top = -1;
+}
+int is_empty(stack *ptr)
+{
+
+  if (ptr->top == -1)
+  {
+    printf("underFlow!\n");
+    return 1;
+  }
+  else
+    return 0;
+}
+int is_full(stack *ptr)
+{
+
+  if (ptr->top == size - 1)
+  {
+    printf("overFlow!\n");
+    return 1;
+  }
+  else
+    return 0;
+}
+void push(stack *ptr, int v)
+{
+
+  if (is_full(ptr))
+  {
+    return;
+  }
+  else
+  {
+    ptr->top++;
+    ptr->stack[ptr->top] = v;
+  }
+}
+void pop(stack *ptr)
+{
+
+  if (is_empty(ptr))
+  {
+    return;
+  }
+  else
+    ptr->top--;
+  printf("popped successfully!\n");
+}
+
+void show(stack *ptr)
+{
+  if (is_empty(ptr))
+  {
+    return;
+  }
+  else
+    printf("the value is %d\n", ptr->stack[ptr->top]);
+}
